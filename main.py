@@ -4,20 +4,18 @@ import pandas as pd
 st.set_page_config(page_title="TikTokダッシュボード", layout="wide")
 st.title("📱 TikTokトレンド動画ダッシュボード")
 
-# 動画データ
+# ✅ 埋め込み再生が確認できた公開動画のみを使用
 data = pd.DataFrame({
-    "タイトル": ["面白い猫", "ダンスチャレンジ", "バズレシピ"],
+    "タイトル": ["犬のお散歩", "NBAハイライト", "TikTok公式紹介"],
     "動画URL": [
-        "https://www.tiktok.com/@catlover/video/7324922347829036290",
-        "https://www.tiktok.com/@dancer123/video/7293874382734982816",
-        "https://www.tiktok.com/@cookmania/video/7283847398273849238"
+        "https://www.tiktok.com/@scout2015/video/6718335390845095173",
+        "https://www.tiktok.com/@nba/video/7228769842417272069",
+        "https://www.tiktok.com/@tiktok/video/6807491984882765061"
     ]
 })
 
-# 表示タイトル
 st.subheader("▶️ TikTok動画ビューア（埋め込み再生）")
 
-# 動画埋め込みループ
 for i, row in data.iterrows():
     st.markdown(f"### {row['タイトル']}")
     video_id = row["動画URL"].split("/")[-1]
