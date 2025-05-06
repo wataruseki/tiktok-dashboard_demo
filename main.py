@@ -4,6 +4,7 @@ import pandas as pd
 st.set_page_config(page_title="TikTokダッシュボード", layout="wide")
 st.title("📱 TikTokトレンド動画ダッシュボード")
 
+# 動画データ
 data = pd.DataFrame({
     "タイトル": ["面白い猫", "ダンスチャレンジ", "バズレシピ"],
     "動画URL": [
@@ -13,8 +14,17 @@ data = pd.DataFrame({
     ]
 })
 
-st.subheader("🎬 トレンド動画一覧")
-st.dataframe(data)
+# 表示タイトル
+st.subheader("▶️ TikTok動画ビューア（埋め込み再生）")
 
-# 一時的に埋め込みをオフにして表示確認
-st.write("（TikTok埋め込み表示は一時的にオフにしています）")
+# 動画埋め込みループ
+for i, row in data.iterrows():
+    st.markdown(f"### {row['タイトル']}")
+    video_id = row["動画URL"].split("/")[-1]
+    st.markdown(f"""
+        <iframe src="https://www.tiktok.com/embed/v2/{video_id}"
+                width="325" height="575" frameborder="0"
+                allow="autoplay; encrypted-media" allowfullscreen>
+        </iframe>
+        <br><br>
+    """, unsafe_allow_html=True)
