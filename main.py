@@ -4,7 +4,7 @@ import pandas as pd
 st.set_page_config(page_title="TikTokダッシュボード", layout="wide")
 st.title("📱 TikTokトレンド動画ダッシュボード")
 
-# 任意の動画URLとタイトル（埋め込みできない動画も含んでOK）
+# 任意の動画データ（表示できないURLを含んでもOK）
 data = pd.DataFrame({
     "タイトル": ["犬のお散歩", "NBAハイライト", "削除された動画", "非公開動画テスト"],
     "動画URL": [
@@ -15,19 +15,14 @@ data = pd.DataFrame({
     ]
 })
 
-st.subheader("🎞 一覧から動画を確認（リンク＋サムネイル風UI）")
+st.subheader("🎞 一覧から動画を確認（埋め込みNG対策UI）")
 
-# TikTok動画リンクをカード風に表示
+# 横2列のレイアウト
 cols = st.columns(2)
 
 for i, row in data.iterrows():
     with cols[i % 2]:
         st.markdown(f"**{row['タイトル']}**")
-
-        # TikTok動画URLから動画IDを抽出
-        video_id = row["動画URL"].split("/")[-1]
-
-        # サムネイル画像は取得不可なため、代替でロゴ＋リンクに
         st.markdown(f"""
         <div style='
             border:1px solid #ddd;
@@ -35,9 +30,9 @@ for i, row in data.iterrows():
             padding: 16px;
             margin-bottom: 20px;
             text-align:center;
-            background-color:#fafafa;
+            background-color:#f9f9f9;
         '>
-            <img src='https://upload.wikimedia.org/wikipedia/commons/0/09/TikTok_logo.svg' width='60'><br><br>
+            <div style="font-size:50px;">🎬</div>
             <a href='{row["動画URL"]}' target='_blank' style='
                 font-size: 16px;
                 background-color:#fe2c55;
@@ -46,6 +41,8 @@ for i, row in data.iterrows():
                 border-radius: 5px;
                 text-decoration: none;
                 font-weight: bold;
+                display: inline-block;
+                margin-top: 10px;
             '>TikTokで見る</a>
         </div>
         """, unsafe_allow_html=True)
